@@ -15,7 +15,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
-          python-version: 3.x # Use the version you need
+          python-version: 3.11.3 # Use the version you need
 
       - name: Install Dependencies
         run: |
@@ -25,10 +25,10 @@ jobs:
           pip install selenium  # Install Selenium package
       - name: set up chromedriver
         uses: actions/checkout@v2
-        uses: nanasess/setup-chromedriver@v2
-            with:
+        with:
               # Optional: do not specify to match Chrome's version
-              chromedriver-version: '88.0.4324.96'
+          chromedriver-version: '88.0.4324.96'
+      - name: run chrome 
         run: chromedriver --url-base=/wd/hub &
       # - name: Set Up Chrome WebDriver
       #   run: |
