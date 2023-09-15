@@ -21,14 +21,18 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y google-chrome-stable
           pip install selenium  # Install Selenium package
-
       - name: Set Up Chrome WebDriver
         run: |
-          CHROME_VERSION=$(google-chrome-stable --version | awk '{print $3}')
-          CHROME_DRIVER_VERSION=$(curl -s "https://chromedriver.storage.googleapis.com/LATEST_RELEASE_$CHROME_VERSION")
-          wget "https://chromedriver.storage.googleapis.com/$CHROME_DRIVER_VERSION/chromedriver_linux64.zip" -P $GITHUB_WORKSPACE/webdriver
-          unzip $GITHUB_WORKSPACE/webdriver/chromedriver_linux64.zip -d $GITHUB_WORKSPACE/webdriver
-          chmod +x $GITHUB_WORKSPACE/webdriver/chromedriver
-
+          CHROME_DRIVER_PATH=$GITHUB_WORKSPACE/chromedriver
+          export PATH=$PATH:$CHROME_DRIVER_PATH
+          chromedriver
+      # - name: Set Up Chrome WebDriver
+      #   run: |
+      #     CHROME_VERSION=$(google-chrome-stable --version | awk '{print $3}')
+      #     CHROME_DRIVER_VERSION=$(curl -s "https://chromedriver.storage.googleapis.com/LATEST_RELEASE_$CHROME_VERSION")
+      #     wget "https://chromedriver.storage.googleapis.com/$CHROME_DRIVER_VERSION/chromedriver_linux64.zip" -P $GITHUB_WORKSPACE/webdriver
+      #     unzip $GITHUB_WORKSPACE/webdriver/chromedriver_linux64.zip -d $GITHUB_WORKSPACE/webdriver
+      #     chmod +x $GITHUB_WORKSPACE/webdriver/chromedriver
+  
       - name: Run Script
         run: python test.py  # Replace with the correct relative path to your script
