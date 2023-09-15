@@ -9,7 +9,9 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-
+      - name: setup-chromedriver
+        uses: nanasess/setup-chromedriver@v2.2.0
+            
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
