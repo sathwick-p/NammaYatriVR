@@ -7,7 +7,7 @@ from selenium.webdriver.chrome.service import Service as ChromeService
 
 # Set the URL of the website and the path to your ChromeDriver executable
 website_url = "https://nammayatri.in/open/"
-chromedriver_path = r"Z:\4Ls\Alpaca\chromedriver-win64\chromedriver.exe"  # Update with your actual path
+chromedriver_path = ""  # Update with your actual path
 
 # Define the CSS selector as a variable
 # Define the updated CSS selector as a variable
