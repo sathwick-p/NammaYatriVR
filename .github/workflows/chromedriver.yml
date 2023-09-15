@@ -1,1 +1,21 @@
-- uses: actions/setup-chromedriver@v1
+name: Run Selenium Tests with Chrome Driver
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/setup-chromedriver@v1
+      - run: |
+          import selenium
+          from selenium import webdriver
+
+          driver = webdriver.Chrome()
+          driver.get("https://www.google.com")
+          assert "Google" in driver.title
+          driver.close()
