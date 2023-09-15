@@ -1,0 +1,34 @@
+name: Download Script
+
+on: [push]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.x # Use the version you need
+
+      - name: Install Dependencies
+        run: |
+          pip install -r requirements.txt  # Install your script's dependencies if any
+          sudo apt-get update
+          sudo apt-get install -y google-chrome-stable
+          pip install selenium  # Install Selenium package
+
+      - name: Set Up Chrome WebDriver
+        run: |
+          CHROME_VERSION=$(google-chrome-stable --version | awk '{print $3}')
+          CHROME_DRIVER_VERSION=$(curl -s "https://chromedriver.storage.googleapis.com/LATEST_RELEASE_$CHROME_VERSION")
+          wget "https://chromedriver.storage.googleapis.com/$CHROME_DRIVER_VERSION/chromedriver_linux64.zip" -P $GITHUB_WORKSPACE/webdriver
+          unzip $GITHUB_WORKSPACE/webdriver/chromedriver_linux64.zip -d $GITHUB_WORKSPACE/webdriver
+          chmod +x $GITHUB_WORKSPACE/webdriver/chromedriver
+
+      - name: Run Script
+        run: python test.py  # Replace with the correct relative path to your script
