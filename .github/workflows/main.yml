@@ -21,11 +21,18 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y google-chrome-stable
           pip install selenium  # Install Selenium package
-      - name: Set Up Chrome WebDriver
-        run: |
-          CHROME_DRIVER_PATH=$GITHUB_WORKSPACE/chromedriver
-          export PATH=$PATH:$CHROME_DRIVER_PATH
-          chromedriver
+      - name: set up chromedriver
+        uses: actions/checkout@v2
+        uses: nanasess/setup-chromedriver@v2
+            with:
+              # Optional: do not specify to match Chrome's version
+              chromedriver-version: '88.0.4324.96'
+        run: chromedriver --url-base=/wd/hub &
+      # - name: Set Up Chrome WebDriver
+      #   run: |
+      #     CHROME_DRIVER_PATH=$GITHUB_WORKSPACE/chromedriver
+      #     export PATH=$PATH:$CHROME_DRIVER_PATH
+      #     chromedriver
       # - name: Set Up Chrome WebDriver
       #   run: |
       #     CHROME_VERSION=$(google-chrome-stable --version | awk '{print $3}')
